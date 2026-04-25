@@ -1,0 +1,205 @@
+[solictud de traslado.html](https://github.com/user-attachments/files/27088013/solictud.de.traslado.html)
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>ADN Travels - Formato Inteligente</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #eef2f6; padding: 20px; }
+        .container { max-width: 650px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-top: 8px solid #003366; }
+        h1 { text-align: center; color: #003366; }
+        
+        /* Casilla de selección */
+        .selector-box { background: #f1f5f9; padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 2px solid #cbd5e1; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .selector-box input { width: 20px; height: 20px; cursor: pointer; }
+        .selector-box span { font-weight: bold; color: #1e293b; }
+
+        .section { margin-bottom: 15px; padding: 15px; border: 1px solid #d1d9e0; border-radius: 10px; background: #fff; }
+        .green { border-left: 5px solid #22c55e; }
+        .yellow { border-left: 5px solid #facc15; }
+        .red { border-left: 5px solid #ef4444; }
+        
+        label { display: block; font-weight: bold; margin-top: 8px; font-size: 13px; color: #334155; }
+        input, textarea { width: 100%; padding: 10px; margin-top: 4px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+        
+        button { padding: 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 16px; width: 100%; }
+        .btn-gen { background: #003366; color: white; margin-top: 20px; }
+        .btn-wa { background: #25d366; color: white; margin-top: 10px; }
+        
+        #output-container { margin-top: 25px; padding: 20px; background: #f8fafc; border: 2px dashed #003366; border-radius: 10px; }
+        pre { white-space: pre-wrap; font-family: 'Courier New', monospace; font-size: 14px; margin: 0; }
+        
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>ADN Travels Assistant ✈️</h1>
+
+    <label class="selector-box">
+        <input type="checkbox" id="modeSinBoletos" onchange="toggleSections()">
+        <span>MARCAR PARA SOLICITUD SIN BOLETOS</span>
+    </label>
+
+    <div id="formConBoletos">
+        <div class="section">
+            <label>Nombre Pax Líder</label>
+            <input type="text" id="nombre">
+            <div class="grid-3">
+                <input type="text" id="adt" placeholder="ADT">
+                <input type="text" id="chd" placeholder="CHD">
+                <input type="text" id="inf" placeholder="INF">
+            </div>
+        </div>
+
+        <div class="section green">
+            <label>🟩 Fecha IN</label><input type="date" id="fechaIn">
+            <div class="grid"><input type="text" id="aeroIn" placeholder="Aero/Naviera"><input type="text" id="vueloIn" placeholder="Vuelo/Ferry"></div>
+            <input type="text" id="rutaIn" placeholder="Ruta">
+            <div class="grid"><input type="time" id="saleIn"><input type="time" id="llegaIn"></div>
+            <input type="text" id="hotelIn" placeholder="Hotel">
+        </div>
+
+        <div class="section yellow">
+            <label>🟨 INTERTRASLADO</label>
+            <input type="date" id="interFecha"><div class="grid"><input type="text" id="interDesde" placeholder="Desde"><input type="text" id="interHasta" placeholder="Hasta"></div>
+        </div>
+
+        <div class="section red">
+            <label>🟥 Fecha OUT</label><input type="date" id="fechaOut">
+            <div class="grid"><input type="text" id="aeroOut" placeholder="Aero/Naviera"><input type="text" id="vueloOut" placeholder="Vuelo/Ferry"></div>
+            <input type="text" id="rutaOut" placeholder="Ruta">
+            <div class="grid"><input type="time" id="saleOut"><input type="time" id="llegaOut"></div>
+            <input type="text" id="hotelOut" placeholder="Hotel">
+        </div>
+        
+        <div class="section">
+            <label>Localizador / Contacto</label>
+            <input type="text" id="loc" placeholder="Localizador de boletos">
+            <input type="text" id="tel" placeholder="Número de contacto">
+            <label>Tour</label>
+            <div class="grid-3"><input type="date" id="tourF"><input type="text" id="tourM" placeholder="Modalidad"><input type="text" id="tourP" placeholder="Parada"></div>
+            <textarea id="obs" placeholder="OBSERVACIÓN" rows="2"></textarea>
+        </div>
+    </div>
+
+    <div id="formSinBoletos" class="hidden">
+        <div class="section" style="border-top: 5px solid #1e293b;">
+            <label>Nombre Pax Líder</label><input type="text" id="nombreS">
+            <div class="grid-3">
+                <input type="text" id="adtS" placeholder="ADT">
+                <input type="text" id="chdS" placeholder="CHD">
+                <input type="text" id="infS" placeholder="INF">
+            </div>
+            <label>Fecha IN</label><input type="date" id="fechaInS">
+            <label>INTERTRASLADO</label><input type="date" id="interFechaS">
+            <label>Fecha OUT</label><input type="date" id="fechaOutS">
+            <label>Hotel</label><input type="text" id="hotelS">
+            <label>Número de contacto</label><input type="text" id="telS">
+            <label>Fecha del Tour</label><input type="date" id="tourFechaS">
+            <label>OBSERVACIÓN</label><textarea id="obsS" rows="3"></textarea>
+        </div>
+    </div>
+
+    <button class="btn-gen" onclick="generar()">✨ GENERAR PLANTILLA</button>
+
+    <div id="output-container">
+        <pre id="output">Los datos aparecerán aquí...</pre>
+    </div>
+
+    <button class="btn-wa" onclick="enviarWA()">💬 Enviar a WhatsApp</button>
+</div>
+
+<script>
+    function toggleSections() {
+        const isSinBoletos = document.getElementById('modeSinBoletos').checked;
+        document.getElementById('formConBoletos').classList.toggle('hidden', isSinBoletos);
+        document.getElementById('formSinBoletos').classList.toggle('hidden', !isSinBoletos);
+        document.getElementById('output').innerText = "Cambiando de formulario...";
+    }
+
+    function generar() {
+        const isSinBoletos = document.getElementById('modeSinBoletos').checked;
+        const v = (id) => document.getElementById(id).value.trim() || "-";
+        let res = "";
+
+        if (isSinBoletos) {
+            res = `*SOLICITUD DE TRASLADO SIN BOLETOS*
+_Aeropuerto/Muelle_
+*HTL* _Aeropuerto/Muelle_
+
+*Nombre Pax Líder:* ${v('nombreS')}
+Cantidad de ADT: ${v('adtS')}
+Cantidad de CHD: ${v('chdS')}
+Cantidad de INF: ${v('infS')}
+
+*Fecha IN:*
+${v('fechaInS')}
+*INTERTRASLADO:*
+Fecha del intertraslado:
+${v('interFechaS')}
+*Fecha OUT:*
+${v('fechaOutS')}
+*Hotel:*
+${v('hotelS')}
+
+📱Número de contacto:
+${v('telS')}
+ 
+¿LOS PAX CUENTAN CON? 
+
+TOUR:
+Fecha del Tour: ${v('tourFechaS')}
+
+OBSERVACIÓN:
+${v('obsS')}`;
+        } else {
+            res = `*SOLICITUD DE TRASLADO*
+_Aeropuerto/Muelle_
+*HTL* _Aeropuerto/Muelle_
+
+*Nombre Pax Líder:* ${v('nombre')}
+Cantidad de ADT: ${v('adt')}
+Cantidad de CHD: ${v('chd')}
+Cantidad de INF: ${v('inf')}
+
+🟩*Fecha IN:*
+${v('fechaIn')}
+Aerolínea ó Naviera: ${v('aeroIn')}
+Vuelo ó Ferry: ${v('vueloIn')}
+Ruta: ${v('rutaIn')}
+Sale: ${v('saleIn')} | Llega: ${v('llegaIn')}
+Hotel: ${v('hotelIn')}
+
+🟨*INTERTRASLADO:*
+Fecha: ${v('interFecha')} | Desde: ${v('interDesde')} | Hasta: ${v('interHasta')}
+
+🟥*Fecha OUT:*
+${v('fechaOut')}
+Aerolínea ó Naviera: ${v('aeroOut')}
+Vuelo ó Ferry: ${v('vueloOut')}
+Ruta: ${v('rutaOut')}
+Sale: ${v('saleOut')} | Llega: ${v('llegaOut')}
+Hotel: ${v('hotelOut')}
+
+_Loc:_ ${v('loc')} | 📱:${v('tel')}
+
+¿TOUR? Fecha: ${v('tourF')} | Mod: ${v('tourM')} | Parada: ${v('tourP')}
+
+OBSERVACIÓN: ${v('obs')}`;
+        }
+
+        document.getElementById('output').innerText = res;
+    }
+
+    function enviarWA() {
+        const text = document.getElementById('output').innerText;
+        window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank");
+    }
+</script>
+
+</body>
+</html>
